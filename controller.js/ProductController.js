@@ -4,7 +4,7 @@ module.exports.createProduct = async (req, res) => {
   try {
     const addProduct = new ProductSchema(req.body);
     const productData = await addProduct.save();
-    res.send(productData);
+    res.status(200).send(productData);
   } catch (e) {
     res.status(400).send(e);
   }
