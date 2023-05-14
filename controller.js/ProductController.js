@@ -1,6 +1,11 @@
+const express = require("express");
+const app = express();
 const ProductSchema = require("../models/produts");
+app.use(express.urlencoded({ extended: true }));
 
 module.exports.createProduct = async (req, res) => {
+  console.log("prprpr", req.body);
+
   try {
     const addProduct = new ProductSchema(req.body);
     const productData = await addProduct.save();

@@ -1,26 +1,26 @@
-import express from "express";
-const router = express.Router();
-require("./db/conn");
-
+const express = require("express");
 const app = express();
-const port = process.env.PORT || 5000;
+require("./db/conn");
+const cors = require("cors");
 
+// defining routes
 const product = require("./routers/product");
 const user = require("./routers/user");
 
-app.use(express.json());
+// const cookieParser = require("cookie-parser");
+//console.log(new mongoose.Types.ObjectId())
 
-app.use(router);
-const cors = require("cors");
+const PORT = 5000;
 app.use(cors({}));
 
-require("dotenv").config();
+// FOR PARSING THE REQUEST DATA
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-// defing routes
-
+//ROUTING
 app.use("/product", product);
 app.use("/user", user);
 
-app.listen(port, () => {
-  console.log("go live");
+app.listen(PORT, () => {
+  console.log("server is starting on port number %d", PORT);
 });
