@@ -4,11 +4,14 @@ const ProductSchema = require("../models/produts");
 app.use(express.urlencoded({ extended: true }));
 
 module.exports.createProduct = async (req, res) => {
-  console.log("prprpr", req.body);
-
+  if (req.file) {
+    req.body.image = req.file.filename;
+  }
   try {
+    console.log("req.body", req.body);
     const addProduct = new ProductSchema(req.body);
     const productData = await addProduct.save();
+    console.log("dadada", productData);
     res.status(200).send(productData);
   } catch (e) {
     res.status(400).send(e);

@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     cb(null, filePath); // null denotes the error, second argument denotes the actual destination and third is file name.
   },
   filename: (req, file, cb) => {
-    console.log(file);
+    console.log("mero", file);
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });

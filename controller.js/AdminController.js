@@ -18,6 +18,7 @@ module.exports.loginUser = async (req, res) => {
   }
 
   if (userDetail?.password == password) {
-    return res.status(200).send("login success");
+    const token = jwt.sign({ userDetail }, "sandesh");
+    return res.send(token).status(200);
   }
 };

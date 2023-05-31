@@ -1,5 +1,7 @@
 import express from "express";
+const authentication = require("../utils/auth");
 const router = express.Router();
+const upload = require("../utils/multer.js");
 
 const {
   createProduct,
@@ -10,7 +12,8 @@ const {
 } = require("../controller.js/ProductController");
 
 router.get("/", getAllProduct);
-router.post("/create", createProduct);
+router.post("/create", upload.single("image"), createProduct);
+// authentication, this can be added when token verification is needed
 router.patch("/edit/:id", editProduct);
 router.delete("/delete/:id", deleteProduct);
 router.get("/getSingleProduct/:id", getSingleProduct);
