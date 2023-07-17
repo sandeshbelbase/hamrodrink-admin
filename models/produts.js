@@ -21,8 +21,14 @@ const productSchema = new mongoose.Schema({
     require: true,
     trim: true,
   },
-  image: {
+  category: {
     type: String,
+    require: true,
+    trim: true,
+  },
+  image: {
+    type: Buffer,
+    required: true,
   },
 });
 

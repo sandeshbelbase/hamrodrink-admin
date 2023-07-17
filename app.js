@@ -3,6 +3,8 @@ const app = express();
 require("./db/conn");
 const cors = require("cors");
 
+app.use("/uploads", express.static("uploads"));
+
 // defining routes
 const product = require("./routers/product");
 const user = require("./routers/user");

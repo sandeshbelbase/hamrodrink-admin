@@ -9,7 +9,6 @@ const {
   getAllProduct,
   editProduct,
   deleteProduct,
-  getSingleProduct,
 } = require("../controller.js/ProductController");
 
 router.get("/", getAllProduct);
@@ -17,6 +16,6 @@ router.post("/create", upload.single("image"), createProduct);
 // authentication, this can be added when token verification is needed
 router.patch("/edit/:id", editProduct);
 router.delete("/delete/:id", deleteProduct);
-router.get("/getSingleProduct/:id", getSingleProduct);
+// router.get("/getSingleProduct/:id", getSingleProduct);
 
 module.exports = router;

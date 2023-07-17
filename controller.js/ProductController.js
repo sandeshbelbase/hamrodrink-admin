@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const ProductSchema = require("../models/produts");
+const { baseUrl } = require("../utils/baseUrl");
 app.use(express.urlencoded({ extended: true }));
 
 module.exports.createProduct = async (req, res) => {
@@ -11,7 +12,6 @@ module.exports.createProduct = async (req, res) => {
     console.log("req.body", req.body);
     const addProduct = new ProductSchema(req.body);
     const productData = await addProduct.save();
-    console.log("dadada", productData);
     res.status(200).send(productData);
   } catch (e) {
     res.status(400).send(e);
@@ -19,9 +19,20 @@ module.exports.createProduct = async (req, res) => {
 };
 
 module.exports.getAllProduct = async (req, res) => {
+  const base = baseUrl(req);
+
   try {
     const allProduct = await ProductSchema.find({});
-    res.send(allProduct);
+    const productsWithImagePath = allProduct.map((product) => {
+      return {
+        ...product._doc,
+        image: {
+          path: `${base}/uploads/${product.image}`,
+        },
+      };
+    });
+    // const imagePath = `/uploads/${filename}`;
+    res.send(productsWithImagePath);
   } catch (e) {
     res.status(400).send(e);
   }
